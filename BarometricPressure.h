@@ -14,12 +14,12 @@ const unsigned char OSS = 0;  // Oversampling Setting
 class BarometricPressure
 {
   public:
-  	BarometricPressure(int dumb);
-  	void Calibration();
+  	BarometricPressure(void);
+  	void Calibration(void);
 		short GetTemperature(unsigned int ut);
 		long GetPressure(unsigned long up);
-		unsigned int ReadUT();
-		unsigned long ReadUP();
+		unsigned int ReadUT(void);
+		unsigned long ReadUP(void);
 	private:
 		char Read(unsigned char address);
 		int ReadInt(unsigned char address);

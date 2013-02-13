@@ -46,7 +46,7 @@ long b5;
 //   delay(250);
 // }
 
-BarometricPressure::BarometricPressure(int dumb)
+BarometricPressure::BarometricPressure(void)
 {
   Calibration();
 }
@@ -54,7 +54,7 @@ BarometricPressure::BarometricPressure(int dumb)
 // Stores all of the bmp085's calibration values into global variables
 // Calibration values are required to calculate temp and pressure
 // This function should be called at the beginning of the program
-void BarometricPressure::Calibration()
+void BarometricPressure::Calibration(void)
 {
   ac1 = ReadInt(0xAA);
   ac2 = ReadInt(0xAC);
@@ -153,7 +153,7 @@ int BarometricPressure::ReadInt(unsigned char address)
 }
 
 // Read the uncompensated temperature value
-unsigned int BarometricPressure::ReadUT()
+unsigned int BarometricPressure::ReadUT(void)
 {
   unsigned int ut;
   
@@ -173,7 +173,7 @@ unsigned int BarometricPressure::ReadUT()
 }
 
 // Read the uncompensated pressure value
-unsigned long BarometricPressure::ReadUP()
+unsigned long BarometricPressure::ReadUP(void)
 {
   unsigned char msb, lsb, xlsb;
   unsigned long up = 0;

@@ -19,7 +19,7 @@
 short temperature;
 long pressure;
 
-BarometricPressure bp(66);
+BarometricPressure bp;
 
 void setup()
 {
