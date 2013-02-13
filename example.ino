@@ -24,6 +24,7 @@ BarometricPressure bp(66);
 void setup()
 {
   Serial.begin(9600);
+  Serial.print("blake");
   Wire.begin();
   bp.Calibration();
 }
@@ -33,8 +34,8 @@ void loop()
   temperature = bp.GetTemperature(bp.ReadUT());
   pressure = bp.GetPressure(bp.ReadUP());
   Serial.print("Temperature: ");
-  Serial.print(temperature, DEC);
-  Serial.println(" *0.1 deg C");
+  Serial.print(temperature*0.1, DEC);
+  Serial.println(" deg C");
   Serial.print("Pressure: ");
   Serial.print(pressure, DEC);
   Serial.println(" Pa");

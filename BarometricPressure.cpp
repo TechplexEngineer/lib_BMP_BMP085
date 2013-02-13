@@ -3,9 +3,10 @@
   Created by Blake Bourque, 2/7/13
 */
 
-#include "Arduino.h"
-#include "BarometricPressure.h"
+#include <Arduino.h>
 #include <Wire.h>
+#include "BarometricPressure.h"
+
 
 // Calibration values
 int ac1;
@@ -48,7 +49,6 @@ long b5;
 
 BarometricPressure::BarometricPressure(int dumb)
 {
-  Calibration();
 }
 
 // Stores all of the bmp085's calibration values into global variables
