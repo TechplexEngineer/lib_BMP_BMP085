@@ -5,50 +5,17 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-#include "BarometricPressure.h"
+#include "BMP085.h"
 
-
-// Calibration values
-int ac1;
-int ac2; 
-int ac3; 
-unsigned int ac4;
-unsigned int ac5;
-unsigned int ac6;
-int b1; 
-int b2;
-int mb;
-int mc;
-int md;
-
-// b5 is calculated in bmp085GetTemperature(...), this variable is also used in bmp085GetPressure(...)
-// so ...Temperature(...) must be called before ...Pressure(...).
-long b5;
-
-// Morse::Morse(int pin)
-// {
-//   pinMode(pin, OUTPUT);
-//   _pin = pin;
-// }
-
-// void Morse::dot()
-// {
-//   digitalWrite(_pin, HIGH);
-//   delay(250);
-//   digitalWrite(_pin, LOW);
-//   delay(250);  
-// }
-
-// void Morse::dash()
-// {
-//   digitalWrite(_pin, HIGH);
-//   delay(1000);
-//   digitalWrite(_pin, LOW);
-//   delay(250);
-// }
-
-BarometricPressure::BarometricPressure(int dumb)
+//! Constructor
+BarometricPressure::BarometricPressure()
 {
+}
+
+void BarometricPressure::Begin(void)
+{
+  Wire.begin(); //!@todo not sure if I should do this or not.
+  Calibration();
 }
 
 // Stores all of the bmp085's calibration values into global variables
@@ -205,3 +172,6 @@ unsigned long BarometricPressure::ReadUP()
   
   return up;
 }
+
+//! Preinstantiate class
+BarometricPressure BP;

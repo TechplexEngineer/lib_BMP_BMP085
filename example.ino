@@ -14,25 +14,24 @@
   bmp085ReadUT functions.
 */
 #include <Wire.h>
-#include "BarometricPressure.h"
+#include "BMP085.h"
 
 short temperature;
 long pressure;
 
-BarometricPressure bp(66);
-
 void setup()
 {
-  Serial.begin(9600);
-  Serial.print("blake");
   Wire.begin();
-  bp.Calibration();
+  BP.Begin();
+  Serial.begin(9600);
+  Serial.print("Plexuino Starting Up!\n");
+  delay(1000);
 }
 
 void loop()
 {
-  temperature = bp.GetTemperature(bp.ReadUT());
-  pressure = bp.GetPressure(bp.ReadUP());
+  temperature = BP.GetTemperature(BP.ReadUT());
+  pressure = BP.GetPressure(BP.ReadUP());
   Serial.print("Temperature: ");
   Serial.print(temperature*0.1, DEC);
   Serial.println(" deg C");
