@@ -11,14 +11,30 @@
 
 const unsigned char OSS = 0;  // Oversampling Setting
 
+typedef enum{
+	TEMP_U = 0, 	//Temp uncompensated 
+	TEMP_C,				//Temp in degrees C
+	TEMP_F				//Temp in degrees F
+}TEMP_MODE;
+
+typedef enum{
+	PRES_U =0,		//Pressure uncompensated
+	PRES_PA,			//Pressure in Pascals
+	PRES_PSI			//Pressure in PSI (Pounds / Square Inch)
+}PRES_MODE;
+
 class BarometricPressure
 {
   public:
   	BarometricPressure(void);
   	void Begin(void);
   	void Calibration(void);
-		short GetTemperature(unsigned int ut);
-		long GetPressure(unsigned long up);
+
+		short GetTemp(TEMP_MODE tm=TEMP_C);
+		long GetPressure(PRES_MODE pm=PRES_PA);
+
+		////////// -- ADVANCED -- //////////
+
 		unsigned int ReadUT(void);
 		unsigned long ReadUP(void);
 	private:

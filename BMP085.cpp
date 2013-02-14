@@ -38,23 +38,41 @@ void BarometricPressure::Calibration(void)
 
 // Calculate temperature given ut.
 // Value returned will be in units of 0.1 deg C
-short BarometricPressure::GetTemperature(unsigned int ut)
+short BarometricPressure::GetTemp(TEMP_MODE tm/*=TEMP_C*/)
 {
+  unsigned int ut = ReadUT();
+  if(tm == TEMP_U)
+    return ut;
+
   long x1, x2;
   
   x1 = (((long)ut - (long)ac6)*(long)ac5) >> 15;
   x2 = ((long)mc << 11)/(x1 + md);
   b5 = x1 + x2;
 
-  return ((b5 + 8)>>4);  
+  short temp_c = ((b5 + 8)>>4)*0.1;
+
+  if(tm == TEMP_C)
+    return temp_c;
+  else if(tm == TEMP_F)
+    return (9/5 * (temp_c+32)); //convert c to f
+
+  return ut;
 }
 
 // Calculate pressure given up
 // calibration values must be known
 // b5 is also required so bmp085GetTemperature(...) must be called first.
 // Value returned will be pressure in units of Pa.
-long BarometricPressure::GetPressure(unsigned long up)
+long BarometricPressure::GetPressure(PRES_MODE pm/*=PRES_PA*/)
 {
+  GetTemp(); //this make sure b5 is updated
+
+  unsigned long up = ReadUP();
+
+  if(pm == PRES_U)
+    return up;
+
   long x1, x2, x3, b3, b6, p;
   unsigned long b4, b7;
   
@@ -81,8 +99,13 @@ long BarometricPressure::GetPressure(unsigned long up)
   x1 = (x1 * 3038)>>16;
   x2 = (-7357 * p)>>16;
   p += (x1 + x2 + 3791)>>4;
-  
-  return p;
+
+  if(pm == PRES_PA)
+    return p;
+  else if(pm == PRES_PSI)
+    return (p*(0.000145037738)); //convert pa to psi
+
+  return up;
 }
 
 // Read 1 byte from the BMP085 at 'address'

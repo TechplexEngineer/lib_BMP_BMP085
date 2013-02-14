@@ -24,21 +24,21 @@ void setup()
   Wire.begin();
   BP.Begin();
   Serial.begin(9600);
-  Serial.print("Plexuino Starting Up!\n");
+  Serial.print("\n\n\n\n\n\n\n\n\n\n");
+  Serial.print("\n\n\n\n\n\n\n\n\n\n");
+  Serial.print("\n\n\n\n\n\n\n\n\n\n");
+  Serial.println("Plexuino Starting Up!");
   delay(1000);
 }
 
 void loop()
 {
-  temperature = BP.GetTemperature(BP.ReadUT());
-  pressure = BP.GetPressure(BP.ReadUP());
-  Serial.print("Temperature: ");
-  Serial.print(temperature*0.1, DEC);
-  Serial.println(" deg C");
-  Serial.print("Pressure: ");
-  Serial.print(pressure, DEC);
-  Serial.println(" Pa");
-  Serial.println();
+  temperature = BP.GetTemp(TEMP_F);
+  pressure = BP.GetPressure(PRES_PSI);
+  String temp = "Temperature: \t" + String(temperature) + "F";
+  String pres = "Pressure: \t"    + String(pressure) +    "PSI";
+
+  Serial.println(temp+"\n\r"+pres);
   delay(1000);
 }
 
